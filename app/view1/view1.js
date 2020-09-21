@@ -13,7 +13,6 @@ angular.module('myApp.view1', ['ngRoute'])
 
     const width = 600;
     const height = 360;
-    const MIN_WIDTH = 20;
 
     $scope.newCard = [];
     $scope.elementSelected = {};
@@ -56,7 +55,33 @@ angular.module('myApp.view1', ['ngRoute'])
         layer.draw();
         return;
       }
-      tr.nodes([e.target])
+
+      if (!e.target.attrs.text && !e.target.attrs.image) {
+        return;
+      }
+
+      // do we pressed shift or ctrl?
+      const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
+      const isSelected = tr.nodes().indexOf(e.target) >= 0;
+      tr.moveToTop();
+
+      if (!metaPressed && !isSelected) {
+        // if no key pressed and the node is not selected
+        // select just one
+        tr.nodes([e.target]);
+      } else if (metaPressed && isSelected) {
+        // if we pressed keys and node was selected
+        // we need to remove it from selection:
+        const nodes = tr.nodes().slice(); // use slice to have new copy of array
+        // remove node from array
+        nodes.splice(nodes.indexOf(e.target), 1);
+        tr.nodes(nodes);
+      } else if (metaPressed && !isSelected) {
+        // add the node into selection
+        const nodes = tr.nodes().concat([e.target]);
+        tr.nodes(nodes);
+      }
+      layer.draw();
     });
 
 
@@ -103,12 +128,14 @@ angular.module('myApp.view1', ['ngRoute'])
       }
     }
 
+    /** MOVER ITEM PARA A CAMADA ACIMA **/
     $scope.moveToBack = function (element) {
       element.moveDown();
       layer.draw();
       console.log(layer)
     }
 
+    /** REMOVER ELEMENTO **/
     $scope.removeElement = function () {
       $timeout(() => {
         let index = $scope.newCard.findIndex((element) => {
@@ -124,6 +151,7 @@ angular.module('myApp.view1', ['ngRoute'])
       });
     }
 
+    /** SELECIONAR ELEMENTOS **/
     $scope.selectElement = function (element) {
       $scope.elementSelected = element;
     }
