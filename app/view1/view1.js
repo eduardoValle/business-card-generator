@@ -156,6 +156,44 @@ angular.module('myApp.view1', ['ngRoute'])
       $scope.elementSelected = element;
     }
 
+    /** TROCAR A FONTE DO TEXTO **/
+    $scope.changeTextFont = function (element) {
+      element.fontFamily(element.fontFamilyTemp);
+      layer.draw();
+    }
+
+    /** TROCAR A COR DO TEXTO **/
+    $scope.changeTextFontColor = function (element) {
+      element.fill(element.colorTemp);
+      layer.draw();
+    }
+
+    /** TROCAR O ESTILO DO TEXTO **/
+    $scope.changeTextStyle = function (element, style) {
+      element.fontStyleTemp = element.fontStyleTemp ? element.fontStyleTemp : '';
+      let index = element.fontStyleTemp.indexOf(style);
+      if(index >= 0) {
+        element.fontStyleTemp = element.fontStyleTemp.replace(style, '')
+      } else {
+        element.fontStyleTemp += ' ' + style;
+      }
+      element.fontStyle(element.fontStyleTemp);
+      layer.draw();
+    }
+
+    /** TROCAR  A DECORAÇÃO DO TEXTO **/
+    $scope.changeTextDecoration = function (element, decoration) {
+      element.fontDecorationTemp = element.fontDecorationTemp ? element.fontDecorationTemp : '';
+      let index = element.fontDecorationTemp.indexOf(decoration);
+      if(index >= 0) {
+        element.fontDecorationTemp = '';
+      } else {
+        element.fontDecorationTemp += decoration;
+      }
+      element.textDecoration(decoration);
+      layer.draw();
+    }
+
     $scope.lockElement = function (element) {
       element.lock = !element.lock;
     }

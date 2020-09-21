@@ -32,7 +32,6 @@ canvas {
 
 .list-element-bar {
   height: 40rem;
-  direction: rtl;
   overflow-y: auto;
   overflow-x: hidden;
   border: 1px solid #dbdddf;";

@@ -1,90 +1,44 @@
 <div class="container">
   <h1>Gerador de cartão para empresas</h1>
 
-  <div class="col-12 p-0 top-bar">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <!-- PREDEFINIDOS -->
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-          <i class="far fa-images fa-3x"></i>
-        </a>
-      </li>
-
-      <!-- IMAGENS -->
-      <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-          <i class="far fa-file-image fa-3x"></i>
-        </a>
-      </li>
-
-      <!-- TEXTOS -->
-      <li class="nav-item">
-        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-          <i class="fa fa-text-height fa-3x"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-
+  <!-- BARRA LATERAL ESQUERDA -->
   <div class="tab-content float-left col-3 p-0 mt-2 list-element-bar" id="myTabContent">
+    <!-- ADICIOANR IMAGEM -->
+    <div class="add-item background-default">
+      <button class="btn btn-info" ng-click="addImage();">
+        <i class="fas fa-plus"></i> <i class="far fa-file-image"></i>
+      </button>
 
-    <!-- BARRA LATERAL ESQUERDA -->
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <!-- ADICIOANR TEXTO -->
+      <button class="btn btn-info" ng-click="addText();">
+        <i class="fas fa-plus"></i> <i class="fa fa-text-height"></i>
+      </button>
+    </div>
 
-      <!-- ADICIOANR IMAGEM -->
-      <div class="add-item background-default">
-        <button class="btn btn-info" ng-click="addImage();">
-          <i class="fas fa-plus"></i> <i class="far fa-file-image"></i>
-        </button>
-
-        <!-- ADICIOANR TEXTO -->
-        <button class="btn btn-info" ng-click="addText();">
-          <i class="fas fa-plus"></i> <i class="fa fa-text-height"></i>
-        </button>
-      </div>
-
-      <!-- LISTAGEM DE ELEMETNOS -->
-      <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
-        <div class="input-group" style="padding: .50rem 0;">
-          <div class="input-group-prepend cursor-pointer">
-            <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>
-          </div>
-
-          <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
-                    ng-blur="updateText(element);" placeholder="" rows="2"></textarea>
-
-          <div class="img-thumbnail" ng-if="element.attrs.image">
-            <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg" style="max-height: 3.9rem; width: 100%;">
-          </div>
-
-          <div class="input-group-prepend">
-            <button type="button" class="btn btn-secondary" ng-click="lockElement(element);">
-              <i class="fas {{element.lock ? 'fa-lock' : 'fa-lock-open'}}"></i>
-            </button>
-          </div>
+    <!-- LISTAGEM DE ELEMETNOS -->
+    <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
+      <div class="input-group" style="padding: .50rem 0;">
+        <div class="input-group-prepend cursor-pointer">
+          <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>
         </div>
-      </div>
-    </div>
 
-    <!-- MENU LATERAL DE IMAGENS -->
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      ewrwer
-    </div>
+        <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
+                  ng-change="updateText(element);" ng-model-options="{debounce: 500}" rows="2"></textarea>
 
-    <!-- LISTA DE IMAGENS PREDEFINIDOS -->
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-      <div ng-repeat="predefinido in predefinidos track by $index">
-        <!--      <h5>{{predefinido.name}}</h5>-->
-        <div class="img-thumbnail mb-2 card-item">
-          <label class="m-0">
-            <input class="radio-image" type="radio" name="test" value="small">
-            <img class="responsive" src="../assets/images/backgrounds/{{predefinido.image}}" style="max-height: 50px; width: 100%;">
-          </label>
+        <div class="img-thumbnail" ng-if="element.attrs.image">
+          <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg" style="max-height: 3.9rem; width: 100%;">
+        </div>
+
+        <div class="input-group-prepend">
+          <button type="button" class="btn btn-secondary" ng-click="lockElement(element);">
+            <i class="fas {{element.lock ? 'fa-lock' : 'fa-lock-open'}}"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- PAINEL CENTRAL -->
   <div class="col-9 float-left mt-2">
     <div class="form-group form-inline p-2 background-default">
       <!-- SELCIONAR COR DA FONTE -->
@@ -92,7 +46,8 @@
         <div class="input-group-prepend cursor-grabbing">
           <div class="input-group-text"><i class="fas fa-fill-drip"></i></div>
         </div>
-        <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input">
+        <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input" ng-model="elementSelected.colorTemp"
+               ng-change="changeTextFontColor(elementSelected)" ng-model-options="{debounce: 500}">
       </div>
 
       <!-- SELCIONAR FONTES -->
@@ -100,9 +55,15 @@
         <div class="input-group-prepend cursor-grabbing">
           <div class="input-group-text"><i class="fas fa-font"></i></div>
         </div>
-        <select id="selecth1FontFamily" name="selectFontFamily">
-          <option ng-repeat="font in fonts track by $index" style="font-family: {{font.font}};">{{font.name}}</option>
+        <select id="selecth1FontFamily" name="selectFontFamily" ng-model="elementSelected.fontFamilyTemp" ng-change="changeTextFont(elementSelected);">
+          <option ng-repeat="font in fonts track by $index" style="font-family: {{font.font}};" value="{{font.font}}">{{font.name}}</option>
         </select>
+      </div>
+
+      <div class="btn-group ml-2" role="group" ng-if="elementSelected.attrs.text">
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'bold');"><i class="fas fa-bold"></i></button>
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'italic');"><i class="fas fa-italic"></i></button>
+        <button class="btn btn-secondary input-tool-bar"  type="button"ng-click="changeTextDecoration(elementSelected, 'underline');"><i class="fas fa-underline"></i></button>
       </div>
 
       <!-- REMOVER ELEMENTO -->
