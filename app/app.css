@@ -23,7 +23,8 @@ canvas {
 }
 
 .list-image {
-  width: 11.4rem !important;
+  width: 12.6rem !important;
+  height: 3.9rem !important;
 }
 
 .img-thumbnail:hover {
@@ -87,6 +88,14 @@ border-right: .1rem solid #dbdddf;
   text-align: center;
 }
 
+.buttom-item {
+  padding: .3rem !important;
+  width: 2rem;
+}
+
+.input-group {
+  flex-wrap: nowrap !important;
+}
 
 /* SRCOLL */
 ::-webkit-scrollbar-track {
@@ -98,8 +107,4 @@ border-right: .1rem solid #dbdddf;
 }
 ::-webkit-scrollbar-thumb {
   background: #4f4e4e;
-}
-
-.scrill-bar-right {
-  direction: rtl;
 }

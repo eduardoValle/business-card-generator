@@ -17,7 +17,7 @@
 
     <!-- LISTAGEM DE ELEMETNOS -->
     <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
-      <div class="input-group" style="padding: .50rem 0;">
+      <div class="input-group" style="padding: .25rem 0;">
         <div class="input-group-prepend cursor-pointer">
           <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>
         </div>
@@ -25,13 +25,15 @@
         <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
                   ng-change="updateText(element);" ng-model-options="{debounce: 500}" rows="2"></textarea>
 
-        <div class="img-thumbnail" ng-if="element.attrs.image">
-          <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg" style="max-height: 3.9rem; width: 100%;">
+        <div class="input-group-append img-thumbnail" ng-if="element.attrs.image">
+          <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg">
         </div>
 
-        <div class="input-group-prepend">
-          <button type="button" class="btn btn-secondary" ng-click="lockElement(element);">
-            <i class="fas {{element.lock ? 'fa-lock' : 'fa-lock-open'}}"></i>
+        <div class="input-group-append">
+          <button class="btn btn-secondary buttom-item" type="button" ng-click="lockElement(element);">
+<!--            <i ng-class="{'fas': true, 'fa-lock': !element.attrs.draggable, 'fa-lock-open': element.attrs.draggable}"></i>-->
+            <label ng-hide="element.attrs.draggable"><i class="fas fa-lock"></i></label>
+            <label ng-hide="!element.attrs.draggable"><i class="fas fa-lock-open"></i></label>
           </button>
         </div>
       </div>
@@ -46,7 +48,7 @@
         <div class="input-group-prepend cursor-grabbing">
           <div class="input-group-text"><i class="fas fa-fill-drip"></i></div>
         </div>
-        <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input" ng-model="elementSelected.colorTemp"
+        <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input" ng-model="elementSelected.attrs.fill"
                ng-change="changeTextFontColor(elementSelected)" ng-model-options="{debounce: 500}">
       </div>
 
@@ -55,7 +57,7 @@
         <div class="input-group-prepend cursor-grabbing">
           <div class="input-group-text"><i class="fas fa-font"></i></div>
         </div>
-        <select id="selecth1FontFamily" name="selectFontFamily" ng-model="elementSelected.fontFamilyTemp" ng-change="changeTextFont(elementSelected);">
+        <select id="selecth1FontFamily" name="selectFontFamily" ng-model="elementSelected.attrs.fontFamily" ng-change="changeTextFont(elementSelected);">
           <option ng-repeat="font in fonts track by $index" style="font-family: {{font.font}};" value="{{font.font}}">{{font.name}}</option>
         </select>
       </div>

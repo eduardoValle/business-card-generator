@@ -93,7 +93,11 @@ angular.module('myApp.view1', ['ngRoute'])
         y: 60,
         text: text,
         fontSize: 20,
+        fontStyle: '',
         draggable: true,
+        fill: '#000000',
+        fontDecoration: '',
+        fontFamily: 'Arial',
       });
       newText.tempText = text;
       layer.add(newText);
@@ -158,44 +162,49 @@ angular.module('myApp.view1', ['ngRoute'])
 
     /** TROCAR A FONTE DO TEXTO **/
     $scope.changeTextFont = function (element) {
-      element.fontFamily(element.fontFamilyTemp);
+      element.fontFamily(element.attrs.fontFamily);
       layer.draw();
     }
 
     /** TROCAR A COR DO TEXTO **/
     $scope.changeTextFontColor = function (element) {
-      element.fill(element.colorTemp);
+      element.fill(element.attrs.fill);
       layer.draw();
     }
 
     /** TROCAR O ESTILO DO TEXTO **/
     $scope.changeTextStyle = function (element, style) {
-      element.fontStyleTemp = element.fontStyleTemp ? element.fontStyleTemp : '';
-      let index = element.fontStyleTemp.indexOf(style);
+      element.attrs.fontStyle = element.attrs.fontStyle ? element.attrs.fontStyle : '';
+      let index = element.attrs.fontStyle.indexOf(style);
       if(index >= 0) {
-        element.fontStyleTemp = element.fontStyleTemp.replace(style, '')
+        element.attrs.fontStyle = element.attrs.fontStyle.replace(style, '')
       } else {
-        element.fontStyleTemp += ' ' + style;
+        element.attrs.fontStyle += ' ' + style;
       }
-      element.fontStyle(element.fontStyleTemp);
+      element.fontStyle(element.attrs.fontStyle);
       layer.draw();
     }
 
     /** TROCAR  A DECORAÇÃO DO TEXTO **/
     $scope.changeTextDecoration = function (element, decoration) {
-      element.fontDecorationTemp = element.fontDecorationTemp ? element.fontDecorationTemp : '';
-      let index = element.fontDecorationTemp.indexOf(decoration);
+      element.attrs.fontDecoration = element.attrs.fontDecoration ? element.attrs.fontDecoration : '';
+      let index = element.attrs.fontDecoration.indexOf(decoration);
       if(index >= 0) {
-        element.fontDecorationTemp = '';
+        element.attrs.fontDecoration = '';
       } else {
-        element.fontDecorationTemp += decoration;
+        element.attrs.fontDecoration += decoration;
       }
-      element.textDecoration(decoration);
+      element.textDecoration(element.attrs.fontDecoration);
       layer.draw();
     }
 
     $scope.lockElement = function (element) {
-      element.lock = !element.lock;
+      $timeout(() => {
+        element.attrs.draggable = !element.attrs.draggable;
+        element.draggable(element.attrs.draggable);
+        layer.draw();
+        console.log(element.attrs.draggable)
+      });
     }
 
     function adicionarElemento(element) {
