@@ -26,27 +26,40 @@
     </ul>
   </div>
 
-  <div class="tab-content float-left col-3 p-0 mt-2" id="myTabContent" style="height: 40rem; border: 1px solid #dbdddf;">
+  <div class="tab-content float-left col-3 p-0 mt-2 list-element-bar" id="myTabContent">
 
-    <!-- LISTA DE TEXTOS -->
+    <!-- BARRA LATERAL ESQUERDA -->
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <!-- ADICIOANR TEXTO -->
+
+      <!-- ADICIOANR IMAGEM -->
       <div class="add-item background-default">
+        <button class="btn btn-info" ng-click="addImage();">
+          <i class="fas fa-plus"></i> <i class="far fa-file-image"></i>
+        </button>
+
+        <!-- ADICIOANR TEXTO -->
         <button class="btn btn-info" ng-click="addText();">
-          <i class="fas fa-plus"></i> Adicionar texto
+          <i class="fas fa-plus"></i> <i class="fa fa-text-height"></i>
         </button>
       </div>
 
-      <!-- LISTAGEM DE TEXTOS -->
-      <div ng-repeat="element in newCard track by $index">
+      <!-- LISTAGEM DE ELEMETNOS -->
+      <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
         <div class="input-group" style="padding: .50rem 0;">
-          <div class="input-group-prepend cursor-grabbing">
+          <div class="input-group-prepend cursor-pointer">
             <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>
           </div>
-          <textarea class="form-control" type="text" ng-model="element.tempText" ng-blur="updateText(element);" placeholder="" rows="1"></textarea>
+
+          <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
+                    ng-blur="updateText(element);" placeholder="" rows="2"></textarea>
+
+          <div class="img-thumbnail" ng-if="element.attrs.image">
+            <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg" style="max-height: 3.9rem; width: 100%;">
+          </div>
+
           <div class="input-group-prepend">
-            <button type="button" class="btn btn-secondary" ng-click="moveToBack(element);">
-              <i class="fas fa-trash"></i>
+            <button type="button" class="btn btn-secondary" ng-click="lockElement(element);">
+              <i class="fas {{element.lock ? 'fa-lock' : 'fa-lock-open'}}"></i>
             </button>
           </div>
         </div>
@@ -73,36 +86,34 @@
   </div>
 
   <div class="col-9 float-left mt-2">
-    <div>
-      <div class="form-group form-inline p-2 background-default">
-        <!-- SELCIONAR COR DA FONTE -->
-        <div class="input-group ml-2">
-          <div class="input-group-prepend cursor-grabbing">
-            <div class="input-group-text"><i class="fas fa-fill-drip"></i></div>
-          </div>
-          <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input">
+    <div class="form-group form-inline p-2 background-default">
+      <!-- SELCIONAR COR DA FONTE -->
+      <div class="input-group ml-2" ng-if="elementSelected.attrs.text">
+        <div class="input-group-prepend cursor-grabbing">
+          <div class="input-group-text"><i class="fas fa-fill-drip"></i></div>
         </div>
+        <input class="form-control input-tool-bar" type="color" value="#000000" id="example-color-input">
+      </div>
 
-        <!-- SELCIONAR FONTES -->
-        <div class="input-group ml-2">
-          <div class="input-group-prepend cursor-grabbing">
-            <div class="input-group-text"><i class="fas fa-font"></i></div>
-          </div>
-          <select id="selecth1FontFamily" name="selectFontFamily">
-            <option ng-repeat="font in fonts track by $index" style="font-family: {{font.font}};">{{font.name}}</option>
-          </select>
+      <!-- SELCIONAR FONTES -->
+      <div class="input-group ml-2" ng-if="elementSelected.attrs.text">
+        <div class="input-group-prepend cursor-grabbing">
+          <div class="input-group-text"><i class="fas fa-font"></i></div>
         </div>
+        <select id="selecth1FontFamily" name="selectFontFamily">
+          <option ng-repeat="font in fonts track by $index" style="font-family: {{font.font}};">{{font.name}}</option>
+        </select>
+      </div>
 
-        <!-- SELCIONAR FONTES -->
-        <div class="input-group ml-2">
-          <button class="btn btn-secondary input-tool-bar" type="button" ng-click="removeElement(element);">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
+      <!-- REMOVER ELEMENTO -->
+      <div class="input-group ml-2">
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="removeElement();">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
     </div>
 
-
+    <!-- CANVAS -->
     <div class="p-3 background-default" id="container" style=" height: 36rem;"></div>
   </div>
 </div>

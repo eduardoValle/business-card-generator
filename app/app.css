@@ -6,8 +6,12 @@ canvas {
   margin: auto;
 }
 
-.cursor-grabbing {
-  cursor: grabbing !important;
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.background-default {
+  background: #e1effc !important;
 }
 
 .card-item {
@@ -18,8 +22,20 @@ canvas {
   background: #b3d4fc;
 }
 
-.background-default {
-  background: #e1effc !important;
+.list-image {
+  width: 11.4rem !important;
+}
+
+.img-thumbnail:hover {
+  background: #b3d4fc;
+}
+
+.list-element-bar {
+  height: 40rem;
+  direction: rtl;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #dbdddf;";
 }
 
 .input-tool-bar {
@@ -70,4 +86,21 @@ border-right: .1rem solid #dbdddf;
 .add-item {
   padding: 1rem;
   text-align: center;
+}
+
+
+/* SRCOLL */
+::-webkit-scrollbar-track {
+  background-color: #a4a19f;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #a4a19f;
+}
+::-webkit-scrollbar-thumb {
+  background: #4f4e4e;
+}
+
+.scrill-bar-right {
+  direction: rtl;
 }

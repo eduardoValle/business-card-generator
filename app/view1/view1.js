@@ -9,14 +9,14 @@ angular.module('myApp.view1', ['ngRoute'])
     });
   }])
 
-  .controller('View1Ctrl', ['$scope', function ($scope) {
+  .controller('View1Ctrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     const width = 600;
     const height = 360;
     const MIN_WIDTH = 20;
 
     $scope.newCard = [];
-    $scope.serchFilter = '';
+    $scope.elementSelected = {};
 
     $scope.fonts = [
       {font: 'Arial', name: 'Arial'},
@@ -46,6 +46,20 @@ angular.module('myApp.view1', ['ngRoute'])
     let layer = new Konva.Layer();
     stage.add(layer);
 
+    let tr = new Konva.Transformer();
+    layer.add(tr);
+
+    /** INSERINDO EVENTO DE SELECIONAR AO CLICAR NO ELEMENTO **/
+    stage.on('click tap', function (e) {
+      if (e.target === stage) {
+        tr.nodes([]);
+        layer.draw();
+        return;
+      }
+      tr.nodes([e.target])
+    });
+
+
     /** ADICIONANDO TEXTO **/
     $scope.addText = function () {
       let text = 'Novo Texto';
@@ -58,80 +72,35 @@ angular.module('myApp.view1', ['ngRoute'])
       });
       newText.tempText = text;
       layer.add(newText);
-      addElement(newText);
-      $scope.newCard.push(newText);
+      layer.draw();
+      adicionarElemento(newText);
+      $scope.selectElement(newText);
     }
 
     /** ADICIONANDO IMAGEM **/
     $scope.addImage = function () {
       Konva.Image.fromURL('https://konvajs.org/assets/darth-vader.jpg', (img) => {
-          img.setAttrs({
-            width: 300,
-            height: 100,
-            x: 80,
-            y: 100,
-            name: 'image',
-            draggable: true,
-          });
-          layer.add(img);
-
-          const tr = new Konva.Transformer({
-            nodes: [img],
-            keepRatio: false,
-            boundBoxFunc: (oldBox, newBox) => {
-              if (newBox.width < 10 || newBox.height < 10) {
-                return oldBox;
-              }
-              return newBox;
-            },
-          });
-
-          layer.add(tr);
-          layer.draw();
-
-          img.on('transform', () => {
-            img.setAttrs({
-              scaleX: 1,
-              scaleY: 1,
-              width: img.width() * img.scaleX(),
-              height: img.height() * img.scaleY(),
-            });
-          });
-        }
-      );
-    }
-
-    function addElement(element) {
-      let tr = new Konva.Transformer({
-        nodes: [element],
-        padding: 5,
-        // enable only side anchors
-        enabledAnchors: ['middle-left', 'middle-right'],
-        // limit transformer size
-        boundBoxFunc: (oldBox, newBox) => {
-          if (newBox.width < MIN_WIDTH) {
-            return oldBox;
-          }
-          return newBox;
-        },
-      });
-      layer.add(tr);
-      layer.draw();
-
-      element.on('transform', () => {
-        element.setAttrs({
-          width: Math.max(element.width() * element.scaleX(), MIN_WIDTH),
-          scaleX: 1,
-          scaleY: 1,
+        img.setAttrs({
+          width: 300,
+          height: 100,
+          x: 80,
+          y: 100,
+          name: 'image',
+          draggable: true,
         });
+        layer.add(img);
+        layer.draw();
+        $scope.selectElement(img);
+        adicionarElemento(img);
       });
     }
-
 
     /** ATUALIZANDO TEXTO **/
     $scope.updateText = function (element) {
-      element.text(element.tempText);
-      layer.draw();
+      if(typeof element.tempText !== "undefined") {
+        element.text(element.tempText);
+        layer.draw();
+      }
     }
 
     $scope.moveToBack = function (element) {
@@ -140,9 +109,32 @@ angular.module('myApp.view1', ['ngRoute'])
       console.log(layer)
     }
 
-    $scope.removeElement = function (element) {
-      console.log('removeu!');
+    $scope.removeElement = function () {
+      $timeout(() => {
+        let index = $scope.newCard.findIndex((element) => {
+          return element._id === $scope.elementSelected._id;
+        });
+        console.log(index)
+        if(index >= 0) {
+          $scope.elementSelected.remove();
+          $scope.elementSelected = {};
+          $scope.newCard.splice(index, 1);
+          layer.draw();
+        }
+      });
     }
 
-    $scope.addImage();
+    $scope.selectElement = function (element) {
+      $scope.elementSelected = element;
+    }
+
+    $scope.lockElement = function (element) {
+      element.lock = !element.lock;
+    }
+
+    function adicionarElemento(element) {
+      $timeout(() => {
+        $scope.newCard.push(element);
+      });
+    }
   }]);
