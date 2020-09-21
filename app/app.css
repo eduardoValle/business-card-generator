@@ -1,0 +1,73 @@
+canvas {
+  background: #ffffff !important;
+}
+
+.konvajs-content {
+  margin: auto;
+}
+
+.cursor-grabbing {
+  cursor: grabbing !important;
+}
+
+.card-item {
+  cursor: pointer;
+}
+
+.card-item:hover {
+  background: #b3d4fc;
+}
+
+.background-default {
+  background: #e1effc !important;
+}
+
+.input-tool-bar {
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: .1rem .1rem !important;
+}
+
+/* HIDE RADIO */
+.radio-image {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+.radio-image + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+.radio-image:checked + img {
+  outline: 3px solid #3048bf;
+}
+
+.top-bar {
+  display: -ms-flexbox;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid #dbdddf;
+}
+
+.button-top-bar {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 4rem;
+height: 4rem;
+background-color: transparent;
+box-sizing: border-box;
+transition: .3s;
+border: none;
+border-radius: 0;
+border-right: .1rem solid #dbdddf;
+}
+
+.add-item {
+  padding: 1rem;
+  text-align: center;
+}
