@@ -123,17 +123,37 @@
 
         <!-- UPLOAD DE IMAGEM -->
         <div class="img-thumbnail float-left m-2 text-center" style="width: 10.5rem;">
-          <img class="responsive" ng-src="{{imagemUploaded}}" style="width: 10rem;">
-          <input ng-model='imagemUploaded' type="file"/>
+          <img class="responsive" src="../assets/images/backgrounds/new.png" style="width: 8rem;">
+          <input type="file" ng-file-select="onFileSelect($files)"/>
         </div>
 
-        <div>
-          <input type="file" ng-file-select="onFileSelect($files)" >
-          <i ng-hide="imageSrc">No image choosed</i>
-          <img ng-src="{{imageSrc}}" /><br/>
+<!--        <div>-->
+<!--          <input type="file" ng-file-select="onFileSelect($files)" >-->
+<!--          <i ng-hide="imageSrc">No image choosed</i>-->
+<!--          <img ng-src="{{imageSrc}}" /><br/>-->
 <!--          <b>Progress:</b>-->
 <!--          <progress value="{{progress}}"></progress>-->
-        </div>
+<!--        </div>-->
+
+
+
+<!--        <div>-->
+<!--          <div class="img-thumbnail float-left m-2" ng-repeat="img in images track by $index">-->
+<!--            <label class="m-0">-->
+<!--              <input class="radio-image" type="radio" name="img.image" value="small">-->
+<!--              <img class="responsive" src="{{img.image}}" style="width: 10rem;">-->
+<!--            </label>-->
+<!--          </div>-->
+
+<!--          <div class="img-thumbnail float-left text-center m-2" style="width: 10.5rem;">-->
+<!--            <label class="m-0">-->
+<!--              <input class="radio-image" type="radio" name="img.image" value="small">-->
+<!--              <img class="responsive" ng-src="{{imageSrc}}" style="width: 10rem; height: 6.6rem;">-->
+<!--              <input type="file" ng-file-select="onFileSelect($files)"/>-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+
 
       </div>
       <div class="modal-footer">

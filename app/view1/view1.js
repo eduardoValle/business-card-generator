@@ -9,7 +9,6 @@ angular.module('myApp.view1')
 
     $scope.newCard = [];
     $scope.elementSelected = {};
-    $scope.imagemUploaded = '../assets/images/backgrounds/new.png';
 
     $scope.fonts = [
       {font: 'Arial', name: 'Arial'},
@@ -204,10 +203,11 @@ angular.module('myApp.view1')
 
     $scope.getFile = function () {
       $scope.progress = 0;
-      fileReader.readAsDataUrl($scope.file, $scope)
-        .then(function(result) {
-          $scope.imageSrc = result;
+      fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
+        $timeout(() => {
+          $scope.images.push({name: 'name', image: result})
         });
+      });
     };
 
     $scope.$on("fileProgress", function(e, progress) {
