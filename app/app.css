@@ -9,8 +9,16 @@ canvas {
   margin: auto;
 }
 
+.mt-6 {
+  margin-top: 5rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer !important;
+}
+
+.bg-primary {
+  background-color: #375a7f !important;
 }
 
 .background-default {

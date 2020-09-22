@@ -111,10 +111,10 @@ angular.module('myApp.view1', ['ngRoute'])
       // Konva.Image.fromURL('https://konvajs.org/assets/darth-vader.jpg', (img) => {
       Konva.Image.fromURL(caminhoImagem, (img) => {
         img.setAttrs({
-          width: 300,
-          height: 100,
-          x: 80,
-          y: 100,
+          width: 500,
+          height: 300,
+          x: 0,
+          y: 0,
           name: 'image',
           imagePath: caminhoImagem,
           draggable: true,
