@@ -2,10 +2,10 @@
   <h1>Gerador de cartão para empresas</h1>
 
   <!-- BARRA LATERAL ESQUERDA -->
-  <div class="tab-content float-left col-3 p-0 mt-2 list-element-bar" id="myTabContent">
+  <div class="tab-content float-left col-3 p-0 mt-2 list-element-bar box-shadow" id="myTabContent">
     <!-- ADICIOANR IMAGEM -->
-    <div class="add-item background-default">
-      <button class="btn btn-info" ng-click="addImage();">
+    <div class="add-item background-default box-shadow">
+      <button class="btn btn-info" data-toggle="modal" data-target="#modalSelcionarImagens">
         <i class="fas fa-plus"></i> <i class="far fa-file-image"></i>
       </button>
 
@@ -17,21 +17,22 @@
 
     <!-- LISTAGEM DE ELEMETNOS -->
     <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
-      <div class="input-group" style="padding: .25rem 0;">
-        <div class="input-group-prepend cursor-pointer">
-          <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>
+      <div class="input-group" style="margin: .5rem 0; border: 1px solid #59a5ce;">
+        <div class="input-group-prepend d-block cursor-pointer" style="width: 2rem;">
+<!--          <div class="input-group-button" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>-->
+          <button class="btn btn-sm btn-light h-50"><i class="fas fa-arrow-up"></i></button>
+          <button class="btn btn-sm btn-light h-50" style="z-index: -1"><i class="fas fa-arrow-down"></i></button>
         </div>
 
         <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
                   ng-change="updateText(element);" ng-model-options="{debounce: 500}" rows="2"></textarea>
 
         <div class="input-group-append img-thumbnail" ng-if="element.attrs.image">
-          <img class="responsive list-image" src="../assets/images/backgrounds/1.jpg">
+          <img class="responsive list-image" src="{{element.attrs.imagePath}}">
         </div>
 
         <div class="input-group-append">
-          <button class="btn btn-secondary buttom-item" type="button" ng-click="lockElement(element);">
-<!--            <i ng-class="{'fas': true, 'fa-lock': !element.attrs.draggable, 'fa-lock-open': element.attrs.draggable}"></i>-->
+          <button class="btn btn-light buttom-item" type="button" ng-click="lockElement(element);">
             <label ng-hide="element.attrs.draggable"><i class="fas fa-lock"></i></label>
             <label ng-hide="!element.attrs.draggable"><i class="fas fa-lock-open"></i></label>
           </button>
@@ -42,7 +43,7 @@
 
   <!-- PAINEL CENTRAL -->
   <div class="col-9 float-left mt-2">
-    <div class="form-group form-inline p-2 background-default">
+    <div class="form-group form-inline p-2 background-default box-shadow">
       <!-- SELCIONAR COR DA FONTE -->
       <div class="input-group ml-2" ng-if="elementSelected.attrs.text">
         <div class="input-group-prepend cursor-grabbing">
@@ -77,6 +78,33 @@
     </div>
 
     <!-- CANVAS -->
-    <div class="p-3 background-default" id="container" style=" height: 36rem;"></div>
+    <div class="p-3 background-default box-shadow" id="container" style=" height: 36rem;"></div>
+  </div>
+</div>
+
+<!-- MODAL PARA ESCOLHER A IMAGEM -->
+<div class="modal fade" id="modalSelcionarImagens" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="img-thumbnail float-left m-2" ng-repeat="img in images track by $index" ng-click="addImage(img.image);" data-dismiss="modal">
+          <img class="responsive" src="{{img.image}}" style="width: 10rem;">
+        </div>
+
+        <!-- UPLOAD DE IMAGEM -->
+        <div class="img-thumbnail float-left m-2">
+          <img class="responsive" src="../assets/images/backgrounds/new.png" style="width: 10rem;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
   </div>
 </div>

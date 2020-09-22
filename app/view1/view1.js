@@ -27,13 +27,13 @@ angular.module('myApp.view1', ['ngRoute'])
       {font: 'Wide Latin', name: 'Wide Latin'}
     ];
 
-    $scope.predefinidos = [
-      {name: 'Modelo 1', image: '1.jpg'},
-      {name: 'Modelo 2', image: '2.jpg'},
-      {name: 'Modelo 3', image: '3.jpg'},
-      {name: 'Modelo 4', image: '4.jpg'},
-      {name: 'Modelo 5', image: '5.jpg'},
-      {name: 'Modelo 6', image: '6.jpg'}
+    $scope.images = [
+      {name: 'Modelo 1', image: '../assets/images/backgrounds/1.jpg'},
+      {name: 'Modelo 2', image: '../assets/images/backgrounds/2.jpg'},
+      {name: 'Modelo 3', image: '../assets/images/backgrounds/3.jpg'},
+      {name: 'Modelo 4', image: '../assets/images/backgrounds/4.jpg'},
+      {name: 'Modelo 5', image: '../assets/images/backgrounds/5.jpg'},
+      {name: 'Modelo 6', image: '../assets/images/backgrounds/6.jpg'}
     ];
 
     let stage = new Konva.Stage({
@@ -107,14 +107,16 @@ angular.module('myApp.view1', ['ngRoute'])
     }
 
     /** ADICIONANDO IMAGEM **/
-    $scope.addImage = function () {
-      Konva.Image.fromURL('https://konvajs.org/assets/darth-vader.jpg', (img) => {
+    $scope.addImage = function (caminhoImagem) {
+      // Konva.Image.fromURL('https://konvajs.org/assets/darth-vader.jpg', (img) => {
+      Konva.Image.fromURL(caminhoImagem, (img) => {
         img.setAttrs({
           width: 300,
           height: 100,
           x: 80,
           y: 100,
           name: 'image',
+          imagePath: caminhoImagem,
           draggable: true,
         });
         layer.add(img);
