@@ -10,12 +10,12 @@
   <div class="tab-content float-left col-3 p-0 mt-6 list-element-bar box-shadow" id="myTabContent">
     <!-- ADICIOANR IMAGEM -->
     <div class="add-item background-default box-shadow">
-      <button class="btn btn-info" data-toggle="modal" data-target="#modalSelcionarImagens">
+      <button class="btn btn-info" data-toggle="modal" data-target="#modalSelcionarImagens" title="Adicionar uma imagem">
         <i class="fas fa-plus"></i> <i class="far fa-file-image"></i>
       </button>
 
       <!-- ADICIOANR TEXTO -->
-      <button class="btn btn-info" ng-click="addText();">
+      <button class="btn btn-info" ng-click="addText();" title="Adicionar um texto">
         <i class="fas fa-plus"></i> <i class="fa fa-text-height"></i>
       </button>
     </div>
@@ -24,9 +24,16 @@
     <div ng-repeat="element in newCard track by $index" ng-click="selectElement(element);">
       <div class="input-group" style="margin: .5rem 0; border: 1px solid #59a5ce;">
         <div class="input-group-prepend d-block cursor-pointer" style="width: 2rem;">
-<!--          <div class="input-group-button" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>-->
-          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, -1);" ng-disabled="$index === 0"><i class="fas fa-arrow-up"></i></button>
-          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, 1);" ng-disabled="$index === (newCard.length -1)"><i class="fas fa-arrow-down"></i></button>
+
+          <!-- MOVER PARA CIMA -->
+          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, -1);" ng-disabled="$index === 0" title="Mover para cima">
+            <i class="fas fa-arrow-up"></i>
+          </button>
+
+          <!-- MOVER PARA BAIXO -->
+          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, 1);" ng-disabled="$index === (newCard.length -1)" title="Mover para baixo">
+            <i class="fas fa-arrow-down"></i>
+          </button>
         </div>
 
         <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
@@ -37,7 +44,7 @@
         </div>
 
         <div class="input-group-append">
-          <button class="btn btn-light buttom-item" type="button" ng-click="lockElement(element);">
+          <button class="btn btn-light buttom-item" type="button" ng-click="lockElement(element);" title="Travar movimento da camada">
             <label ng-hide="element.attrs.draggable"><i class="fas fa-lock"></i></label>
             <label ng-hide="!element.attrs.draggable"><i class="fas fa-lock-open"></i></label>
           </button>
@@ -69,14 +76,22 @@
       </div>
 
       <div class="btn-group ml-2" role="group" ng-if="elementSelected.attrs.text">
-        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'bold');"><i class="fas fa-bold"></i></button>
-        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'italic');"><i class="fas fa-italic"></i></button>
-        <button class="btn btn-secondary input-tool-bar"  type="button"ng-click="changeTextDecoration(elementSelected, 'underline');"><i class="fas fa-underline"></i></button>
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'bold');" title="Negrito">
+          <i class="fas fa-bold"></i>
+        </button>
+
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'italic');" title="Itálico">
+          <i class="fas fa-italic"></i>
+        </button>
+
+        <button class="btn btn-secondary input-tool-bar"  type="button" ng-click="changeTextDecoration(elementSelected, 'underline');" title="Sublinhado">
+          <i class="fas fa-underline"></i>
+        </button>
       </div>
 
       <!-- REMOVER ELEMENTO -->
       <div class="input-group ml-2">
-        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="removeElement();">
+        <button class="btn btn-secondary input-tool-bar" type="button" ng-click="removeElement();" title="Remover elemento">
           <i class="fas fa-trash"></i>
         </button>
       </div>
@@ -86,7 +101,7 @@
     <div class="p-3 background-default box-shadow" id="container" style="height: 31rem; margin-bottom: 1rem;"></div>
 
     <div class="form-group form-inline p-2 background-default box-shadow">
-      <button class="btn btn-lg btn-success m-auto" ng-click="downloadImage();">Fazer download!</button>
+      <button class="btn btn-lg btn-success m-auto" ng-click="downloadImage();" title="Fazer o download da imagem!">Fazer download!</button>
     </div>
   </div>
 </div>
@@ -97,7 +112,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Fechar modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -112,7 +127,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" title="Cancelar e fechar modal">Cancelar</button>
       </div>
     </div>
   </div>
