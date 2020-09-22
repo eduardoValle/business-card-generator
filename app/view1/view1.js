@@ -21,12 +21,12 @@ angular.module('myApp.view1')
     ];
 
     $scope.images = [
-      {name: 'Modelo 1', image: '../assets/images/backgrounds/1.jpg'},
-      {name: 'Modelo 2', image: '../assets/images/backgrounds/2.jpg'},
-      {name: 'Modelo 3', image: '../assets/images/backgrounds/3.jpg'},
-      {name: 'Modelo 4', image: '../assets/images/backgrounds/4.jpg'},
-      {name: 'Modelo 5', image: '../assets/images/backgrounds/5.jpg'},
-      {name: 'Modelo 6', image: '../assets/images/backgrounds/6.jpg'}
+      {name: 'Modelo 1', image: 'assets/images/backgrounds/1.jpg'},
+      {name: 'Modelo 2', image: 'assets/images/backgrounds/2.jpg'},
+      {name: 'Modelo 3', image: 'assets/images/backgrounds/3.jpg'},
+      {name: 'Modelo 4', image: 'assets/images/backgrounds/4.jpg'},
+      {name: 'Modelo 5', image: 'assets/images/backgrounds/5.jpg'},
+      {name: 'Modelo 6', image: 'assets/images/backgrounds/6.jpg'}
     ];
 
     let stage = new Konva.Stage({
@@ -56,7 +56,7 @@ angular.module('myApp.view1')
       let textElement = konvasFactory.addTextElement(layer, 'Novo Texto');
       adicionarElemento(textElement);
       $scope.selectElement(textElement);
-    }
+    };
 
     /** ADICIONANDO IMAGEM **/
     $scope.addImage = function (caminhoImagem) {
@@ -76,7 +76,7 @@ angular.module('myApp.view1')
         $scope.selectElement(img);
         adicionarElemento(img);
       });
-    }
+    };
 
     /** ATUALIZANDO TEXTO **/
     $scope.updateText = function (element) {
@@ -84,13 +84,13 @@ angular.module('myApp.view1')
         element.text(element.tempText);
         layer.draw();
       }
-    }
+    };
 
     /** MOVER ITEM PARA A CAMADA ACIMA **/
     $scope.moveToBack = function (element) {
       element.moveDown();
       layer.draw();
-    }
+    };
 
     /** REMOVER ELEMENTO **/
     $scope.removeElement = function () {
@@ -106,43 +106,43 @@ angular.module('myApp.view1')
           layer.draw();
         }
       });
-    }
+    };
 
     /** SELECIONAR ELEMENTOS **/
     $scope.selectElement = function (element) {
       $scope.elementSelected = element;
-    }
+    };
 
     /** TROCAR A FONTE DO TEXTO **/
     $scope.changeTextFont = function (element) {
       element.fontFamily(element.attrs.fontFamily);
       layer.draw();
-    }
+    };
 
     /** TROCAR A FONTE DO TEXTO **/
     $scope.changeFontSize = function (element) {
       element.fontSize(element.attrs.fontSize);
       layer.draw();
-    }
+    };
 
     /** TROCAR A COR DO TEXTO **/
     $scope.changeTextFontColor = function (element) {
       element.fill(element.attrs.fill);
       layer.draw();
-    }
+    };
 
     /** TROCAR O ESTILO DO TEXTO **/
     $scope.changeTextStyle = function (element, style) {
       element.attrs.fontStyle = element.attrs.fontStyle ? element.attrs.fontStyle : '';
       let index = element.attrs.fontStyle.indexOf(style);
       if(index >= 0) {
-        element.attrs.fontStyle = element.attrs.fontStyle.replace(style, '')
+        element.attrs.fontStyle = element.attrs.fontStyle.replace(style, '');
       } else {
         element.attrs.fontStyle += ' ' + style;
       }
       element.fontStyle(element.attrs.fontStyle);
       layer.draw();
-    }
+    };
 
     /** TROCAR  A DECORAÇÃO DO TEXTO **/
     $scope.changeTextDecoration = function (element, decoration) {
@@ -155,7 +155,7 @@ angular.module('myApp.view1')
       }
       element.textDecoration(element.attrs.fontDecoration);
       layer.draw();
-    }
+    };
 
     $scope.lockElement = function (element) {
       $timeout(() => {
@@ -163,7 +163,7 @@ angular.module('myApp.view1')
         element.draggable(element.attrs.draggable);
         layer.draw();
       });
-    }
+    };
 
     $scope.moveElement = function (element, numIndexToMove) {
       $timeout(() => {
@@ -193,7 +193,7 @@ angular.module('myApp.view1')
         }
         layer.draw();
       });
-    }
+    };
 
     $scope.downloadImage = function () {
       tr.nodes([]);
@@ -205,13 +205,13 @@ angular.module('myApp.view1')
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    }
+    };
 
     $scope.getFile = function () {
       $scope.progress = 0;
       fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
         $timeout(() => {
-          $scope.images.push({name: 'name', image: result})
+          $scope.images.push({name: 'name', image: result});
         });
       });
     };

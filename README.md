@@ -21,11 +21,16 @@ Temos dois tipos de dependências neste projeto: ferramentas e código do framew
 
 Pré-configuramos o npm para copiar automaticamente os arquivos AngularJS baixados para `app/lib` para que possamos simplesmente fazer:
 
+
+### Executando os sitema:
+
+Para iniciar o sistema, basta executar o comando a seguir:
+
 ```
 npm install
 ```
 
-### Criando cartões do sistema
+#### Imagens do sistema
 
 Crie estruturas simples e complexas:
 

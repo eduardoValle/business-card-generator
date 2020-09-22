@@ -1,8 +1,12 @@
 {
   "strict": "global",
+  "esversion":6,
+  "node": true,
   "globals": {
     // AngularJS
     "angular": false,
+    "document": true,
+    'Konva': true,
 
     // AngularJS mocks
     "module": false,
