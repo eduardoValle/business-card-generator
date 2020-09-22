@@ -237,6 +237,18 @@ angular.module('myApp.view1', ['ngRoute'])
       });
     }
 
+    $scope.downloadImage = function () {
+      tr.nodes([]);
+      layer.draw();
+      let dataURL = stage.toDataURL();
+      let link = document.createElement('a');
+      link.download = 'my-business-card.png';
+      link.href = dataURL;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     function adicionarElemento(element) {
       $timeout(() => {
         $scope.newCard.push(element);
