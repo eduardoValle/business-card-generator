@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp')
   .directive("ngFileSelect", function () {
     return {
       link: function ($scope, el) {

@@ -2,7 +2,7 @@
 
 angular.module('myApp.view1')
 
-  .controller('View1Ctrl', ['$scope', '$timeout', 'fileReader', function ($scope, $timeout, fileReader) {
+  .controller('View1Ctrl', ['$scope', '$timeout', 'fileReader', 'konvasFactory', function ($scope, $timeout, fileReader, konvasFactory) {
 
     const width = 600;
     const height = 360;
@@ -42,41 +42,7 @@ angular.module('myApp.view1')
     let tr = new Konva.Transformer();
     layer.add(tr);
 
-    /** INSERINDO EVENTO DE SELECIONAR AO CLICAR NO ELEMENTO **/
-    stage.on('click tap', function (e) {
-      if (e.target === stage) {
-        tr.nodes([]);
-        layer.draw();
-        return;
-      }
-
-      if (!e.target.attrs.text && !e.target.attrs.image) {
-        return;
-      }
-
-      // do we pressed shift or ctrl?
-      const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
-      const isSelected = tr.nodes().indexOf(e.target) >= 0;
-      tr.moveToTop();
-
-      if (!metaPressed && !isSelected) {
-        // if no key pressed and the node is not selected
-        // select just one
-        tr.nodes([e.target]);
-      } else if (metaPressed && isSelected) {
-        // if we pressed keys and node was selected
-        // we need to remove it from selection:
-        const nodes = tr.nodes().slice(); // use slice to have new copy of array
-        // remove node from array
-        nodes.splice(nodes.indexOf(e.target), 1);
-        tr.nodes(nodes);
-      } else if (metaPressed && !isSelected) {
-        // add the node into selection
-        const nodes = tr.nodes().concat([e.target]);
-        tr.nodes(nodes);
-      }
-      layer.draw();
-    });
+    konvasFactory.addClickOnElementEvents(stage, tr, layer);
 
 
     /** ADICIONAR ELEMENTO NA LISTA **/
@@ -88,23 +54,9 @@ angular.module('myApp.view1')
 
     /** ADICIONANDO TEXTO **/
     $scope.addText = function () {
-      let text = 'Novo Texto';
-      let newText = new Konva.Text({
-        x: 50,
-        y: 60,
-        text: text,
-        fontSize: 20,
-        fontStyle: '',
-        draggable: true,
-        fill: '#000000',
-        fontDecoration: '',
-        fontFamily: 'Arial',
-      });
-      newText.tempText = text;
-      layer.add(newText);
-      layer.draw();
-      adicionarElemento(newText);
-      $scope.selectElement(newText);
+      let textElement = konvasFactory.addTextElement(layer, 'Novo Texto');
+      adicionarElemento(textElement);
+      $scope.selectElement(textElement);
     }
 
     /** ADICIONANDO IMAGEM **/
