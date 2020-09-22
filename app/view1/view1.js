@@ -138,7 +138,6 @@ angular.module('myApp.view1', ['ngRoute'])
     $scope.moveToBack = function (element) {
       element.moveDown();
       layer.draw();
-      console.log(layer)
     }
 
     /** REMOVER ELEMENTO **/
@@ -147,7 +146,7 @@ angular.module('myApp.view1', ['ngRoute'])
         let index = $scope.newCard.findIndex((element) => {
           return element._id === $scope.elementSelected._id;
         });
-        console.log(index)
+
         if(index >= 0) {
           $scope.elementSelected.remove();
           $scope.elementSelected = {};
@@ -205,7 +204,36 @@ angular.module('myApp.view1', ['ngRoute'])
         element.attrs.draggable = !element.attrs.draggable;
         element.draggable(element.attrs.draggable);
         layer.draw();
-        console.log(element.attrs.draggable)
+      });
+    }
+
+    $scope.moveElement = function (element, numIndexToMove) {
+      $timeout(() => {
+        let index = $scope.newCard.findIndex((element) => {
+          return element._id === $scope.elementSelected._id;
+        });
+
+        let newIndex = index + numIndexToMove;
+        if(newIndex < 0) {
+          element.moveToBottom();
+          return;
+        }
+
+        if(newIndex > ($scope.newCard.length -1)) {
+          element.moveToTop();
+          return;
+        }
+
+        let temp = $scope.newCard[newIndex];
+        $scope.newCard[newIndex] = element;
+        $scope.newCard[index] = temp;
+
+        if(numIndexToMove > 0) {
+          element.moveUp();
+        } else {
+          element.moveDown();
+        }
+        layer.draw();
       });
     }
 

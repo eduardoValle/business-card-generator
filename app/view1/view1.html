@@ -20,8 +20,8 @@
       <div class="input-group" style="margin: .5rem 0; border: 1px solid #59a5ce;">
         <div class="input-group-prepend d-block cursor-pointer" style="width: 2rem;">
 <!--          <div class="input-group-button" id="btnGroupAddon"><i class="fas fa-arrows-alt-v"></i></div>-->
-          <button class="btn btn-sm btn-light h-50"><i class="fas fa-arrow-up"></i></button>
-          <button class="btn btn-sm btn-light h-50" style="z-index: -1"><i class="fas fa-arrow-down"></i></button>
+          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, -1);" ng-disabled="$index === 0"><i class="fas fa-arrow-up"></i></button>
+          <button class="btn btn-sm btn-light h-50" ng-click="moveElement(element, 1);" ng-disabled="$index === (newCard.length -1)"><i class="fas fa-arrow-down"></i></button>
         </div>
 
         <textarea class="form-control" type="text" ng-model="element.tempText" ng-if="element.attrs.text"
