@@ -75,6 +75,14 @@
         </select>
       </div>
 
+      <!-- SELCIONAR FONTES -->
+      <div class="input-group ml-2" ng-if="elementSelected.attrs.text">
+        <div class="input-group-prepend cursor-grabbing">
+          <div class="input-group-text"><i class="fas fa-text-height"></i></div>
+        </div>
+        <input type="number" ng-model="elementSelected.attrs.fontSize" ng-change="changeFontSize(elementSelected);" ng-model-options="{debounce: 500}">
+      </div>
+
       <div class="btn-group ml-2" role="group" ng-if="elementSelected.attrs.text">
         <button class="btn btn-secondary input-tool-bar" type="button" ng-click="changeTextStyle(elementSelected, 'bold');" title="Negrito">
           <i class="fas fa-bold"></i>

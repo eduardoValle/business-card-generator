@@ -119,6 +119,12 @@ angular.module('myApp.view1')
       layer.draw();
     }
 
+    /** TROCAR A FONTE DO TEXTO **/
+    $scope.changeFontSize = function (element) {
+      element.fontSize(element.attrs.fontSize);
+      layer.draw();
+    }
+
     /** TROCAR A COR DO TEXTO **/
     $scope.changeTextFontColor = function (element) {
       element.fill(element.attrs.fill);
