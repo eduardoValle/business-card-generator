@@ -101,7 +101,7 @@
     <div class="p-3 background-default box-shadow" id="container" style="height: 31rem; margin-bottom: 1rem;"></div>
 
     <div class="form-group form-inline p-2 background-default box-shadow">
-      <button class="btn btn-lg btn-success m-auto" ng-click="downloadImage();" title="Fazer o download da imagem!">Fazer download!</button>
+      <button class="btn btn-lg btn-info m-auto" ng-click="downloadImage();" title="Fazer o download da imagem!">Fazer download!</button>
     </div>
   </div>
 </div>
@@ -122,9 +122,19 @@
         </div>
 
         <!-- UPLOAD DE IMAGEM -->
-        <div class="img-thumbnail float-left m-2">
-          <img class="responsive" src="../assets/images/backgrounds/new.png" style="width: 10rem;">
+        <div class="img-thumbnail float-left m-2 text-center" style="width: 10.5rem;">
+          <img class="responsive" ng-src="{{imagemUploaded}}" style="width: 10rem;">
+          <input ng-model='imagemUploaded' type="file"/>
         </div>
+
+        <div>
+          <input type="file" ng-file-select="onFileSelect($files)" >
+          <i ng-hide="imageSrc">No image choosed</i>
+          <img ng-src="{{imageSrc}}" /><br/>
+<!--          <b>Progress:</b>-->
+<!--          <progress value="{{progress}}"></progress>-->
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" title="Cancelar e fechar modal">Cancelar</button>

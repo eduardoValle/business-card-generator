@@ -1,21 +1,15 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.view1')
 
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/view1', {
-      templateUrl: 'view1/view1.html',
-      controller: 'View1Ctrl'
-    });
-  }])
-
-  .controller('View1Ctrl', ['$scope', '$timeout', function ($scope, $timeout) {
+  .controller('View1Ctrl', ['$scope', '$timeout', 'fileReader', function ($scope, $timeout, fileReader) {
 
     const width = 600;
     const height = 360;
 
     $scope.newCard = [];
     $scope.elementSelected = {};
+    $scope.imagemUploaded = '../assets/images/backgrounds/new.png';
 
     $scope.fonts = [
       {font: 'Arial', name: 'Arial'},
@@ -84,6 +78,13 @@ angular.module('myApp.view1', ['ngRoute'])
       layer.draw();
     });
 
+
+    /** ADICIONAR ELEMENTO NA LISTA **/
+    function adicionarElemento(element) {
+      $timeout(() => {
+        $scope.newCard.push(element);
+      });
+    }
 
     /** ADICIONANDO TEXTO **/
     $scope.addText = function () {
@@ -249,9 +250,15 @@ angular.module('myApp.view1', ['ngRoute'])
       document.body.removeChild(link);
     }
 
-    function adicionarElemento(element) {
-      $timeout(() => {
-        $scope.newCard.push(element);
-      });
-    }
+    $scope.getFile = function () {
+      $scope.progress = 0;
+      fileReader.readAsDataUrl($scope.file, $scope)
+        .then(function(result) {
+          $scope.imageSrc = result;
+        });
+    };
+
+    $scope.$on("fileProgress", function(e, progress) {
+      $scope.progress = progress.loaded / progress.total;
+    });
   }]);
