@@ -34,17 +34,18 @@ npm install
 
 Crie estruturas simples e complexas:
 
-![alt text](https://raw.githubusercontent.com/eduardoValle/business-card-generator/master/assets/images/exemples/card-1.png)
+![alt text](app/assets/images/exemples/card-1.png)
 
 
 As ferramentas ainda são básicas, mas vão melhorar!
 
-![alt text](https://raw.githubusercontent.com/eduardoValle/business-card-generator/master/assets/images/exemples/card-2.png)
+![alt text](app/assets/images/exemples/card-2.png)
 
 
 Você pode criar seu cartão como quiser e baixar ele como imagem!
 
-![alt text](https://raw.githubusercontent.com/eduardoValle/business-card-generator/master/assets/images/exemples/card-3.png)
+![alt text](app/assets/images/exemples/card-3.png)
+
 
 [angularjs]: https://angularjs.org/
 [konva-org]: https://konvajs.org/
