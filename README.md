@@ -18,13 +18,15 @@ Temos dois tipos de dependências neste projeto: ferramentas e código do framew
 
 * Obtemos as ferramentas das quais dependemos e o código AngularJS via `npm`, utilizando o [Node package manager][npm].
 * Para executar os testes de ponta a ponta, você também precisará ter o [Java Development Kit (JDK)][jdk] instalado em sua máquina.
+* Para executar automatizar algumas tarefas, estamos utilizando o [Gulp][GulpJs], dessa forma ganhamos muito tempo ao fazer o build do projto! Então este também precisa estar instalado em sua máquina.
 
-Pré-configuramos o npm para copiar automaticamente os arquivos AngularJS baixados para `app/lib` para que possamos simplesmente fazer:
-
+```
+npm install --global gulp-cli
+```
 
 ### Executando os sitema:
 
-Para iniciar o sistema, basta executar o comando a seguir:
+Pré-configuramos o npm para copiar automaticamente os arquivos AngularJS baixados e dependências do sistema para o doretório `app/lib`, sendo assim, para iniciar o sistema basta executar o comando a seguir:
 
 ```
 npm install
@@ -49,6 +51,7 @@ Você pode criar seu cartão como quiser e baixar ele como imagem!
 
 [angularjs]: https://angularjs.org/
 [konva-org]: https://konvajs.org/
+[GulpJs]: https://gulpjs.com/
 [git]: https://git-scm.com/
 [http-server]: https://github.com/indexzero/http-server
 [jasmine]: https://jasmine.github.io/
