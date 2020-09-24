@@ -3,7 +3,7 @@
 Esse sistema foi desenvolvidor como um estudo da biblioteza do Canvas do HTML5, utilizando as ferramenta [Konva][konva-org] e [AngularJS][angularjs].
 
 
-## `angular-seed` — the seed for AngularJS apps
+## `angular-seed` — uma semente para aplicações AngularJS
 
 Este projeto é um esqueleto baseado em um aplicativo da web [AngularJS][angularjs]. Você pode usá-lo para inicializar rapidamente seus projetos de webapp angular e ambiente de desenvolvimento para esses projetos.
 
